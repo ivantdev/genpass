@@ -1,0 +1,267 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.bold {
+  font-weight: 900;
+}
+
+main {
+  margin: 2rem auto;
+  padding: 2rem;
+  width: 100%;
+  max-width: 800px;
+  background-color: var(--color-background-secondary);
+  border-radius: 20px;
+}
+
+form {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+.form__field {
+  width: 100%;
+  text-align: left;
+}
+
+.theme {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.theme button {
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+.label__checkbox {
+  position: relative;
+}
+
+.field__example {
+  text-decoration: line-through;
+}
+
+.field__example.tachado {
+  text-decoration: unset;
+}
+
+.label__checkbox::before {
+  content: '';
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1rem;
+  border: 1px solid var(--checkbox-color);
+  border-radius: 3px;
+}
+
+.label__checkbox::after {
+  content: '✔';
+  position: absolute;
+  top: 0.2rem;
+  left: 0.2rem;
+  display: none;
+  color: white;
+  font-size: 2.2rem;
+  line-height: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+  .label__checkbox::after {
+    top: 0.0rem;
+    left: 0.4rem;
+    font-size: 1.2rem;
+    line-height: 1rem;
+
+  }
+}
+
+input[type="checkbox"]:checked + .label__checkbox::before {
+  background-color: var(--checkbox-color);
+  border: 1px solid transparent;
+}
+
+input[type="checkbox"]:checked + .label__checkbox::after {
+  display: block;
+}
+
+input[type="checkbox"]:checked + .label__checkbox .field__example {
+  text-decoration: unset;
+}
+
+input[type="checkbox"]:checked + .label__checkbox .field__example.tachado {
+  text-decoration: line-through;
+}
+
+.field__example {
+  margin-left: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  background-color: var(--btn-color-hover);
+  border-radius: 8px;
+}
+
+.password__container {
+  position: relative;
+  margin: 0 auto;
+  padding: 1rem 1rem;
+  max-width: 600px;
+  display: grid;
+  grid-template-columns: 1fr 4rem 4rem;
+  justify-content: center;
+  align-content: center;
+  text-align: left;
+  font-family: "Roboto Mono", monospace;
+  background-color: var(--password-background);
+  color: black;
+  border-radius: 10px;
+}
+
+.password__container button {
+  border: none;
+  aspect-ratio: 1/1;
+}
+
+.password__text {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.password__text span {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.password__text span.to-select {
+  position: absolute;
+  color: transparent;
+  -webkit-touch-callout: unset;
+  -webkit-user-select: unset;
+  -khtml-user-select: unset;
+  -moz-user-select: unset;
+  -ms-user-select: unset;
+  user-select: unset;
+}
+
+.password__text span {
+  display: inline;
+  white-space: nowrap;
+}
+
+.char__letter {
+  color: #7700ff;
+}
+
+.char__number {
+  color: #da3eda;
+}
+
+.char__symbol {
+  color: #248f44;
+}
+
+.description__container {
+  margin: 3rem auto;
+  padding-left: 2rem;
+  max-width: 650px;
+  font-size: 1.6rem;
+  text-align: left;
+}
+
+.description__container h2 {
+  margin: 5rem 0 1rem;
+}
+
+.description__container p {
+  margin: 1rem 0;
+}
+
+/*  */
+/*  */
+/*  */
+
+input[type="range"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.custom-range-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.custom-range-slider {
+  margin: 1rem 0;
+  width: 100%;
+  max-width: 300px;
+  height: 5px;
+  border-radius: 10px;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+}
+
+.custom-range-slider:hover {
+  opacity: 1;
+}
+
+.custom-range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: var(--checkbox-color);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.custom-range-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: var(--checkbox-color);
+  cursor: pointer;
+}
+
+.custom-range-slider::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background: var(--checkbox-color);
+  border-radius: 10px;
+}
+
+.range-value {
+  min-width: 40px;
+  text-align: center;
+}
