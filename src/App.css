@@ -215,7 +215,7 @@ input[type="checkbox"]:checked + .label__checkbox .field__example.tachado {
 .password__text span.to-select {
   position: absolute;
   display: block;
-  width: calc(100% - 10rem);
+  width: calc(100% - 8rem);
   white-space: normal;
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -330,4 +330,19 @@ input[type="range"] {
 .range-value {
   min-width: 40px;
   text-align: center;
+}
+
+/* Animación */
+
+@keyframes rotateX {
+  0% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform: rotateX(360deg);
+  }
+}
+
+span.rotateX {
+  animation: rotateX var(--speed) linear infinite;
 }
