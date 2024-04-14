@@ -1,22 +1,10 @@
 import { createContext, useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import useLocalStorage from "../hooks/useLocalStorage";
+import { setDefaultNewSettings } from "../utils";
+import { defaultStorage } from "../utils/";
 
 const GlobalContext = createContext();
-
-const defaultStorage = {
-  theme: "dark",
-  settings: {
-    length: 16,
-    uppercase: true,
-    lowercase: true,
-    numbers: true,
-    symbols: true,
-    no_repeated: false,
-    start_with_letter: false,
-    no_consecutive: true,
-  },
-};
 
 const GlobalContextProvider = ({ children }) => {
   const [theme, setTheme] = useState();
@@ -36,7 +24,13 @@ const GlobalContextProvider = ({ children }) => {
       setTheme(storage.theme);
       setSettings(storage.settings);
     }
-
+    if (storage && storage.storageVersion !== defaultStorage.storageVersion) {
+      setDefaultNewSettings(storage, defaultStorage, saveStorage);
+      saveStorage({
+        ...storage,
+        storageVersion: defaultStorage.storageVersion,
+      });
+    }
   }, [ storage ]);
 
 

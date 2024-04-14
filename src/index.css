@@ -12,7 +12,7 @@
 
   /* Tema Claro */
   --color-background: #f8f8f8;
-  --color-background-secondary: #A8CCC9 ;
+  --color-background-secondary: #ffffff65;
   --password-background: #f8f8f8;
   --color-text: #333;
   --color-text-light: #5f6368;
@@ -24,7 +24,7 @@
 [data-theme="dark"] {
   /* Tema Oscuro */
   --color-background: #202124;
-  --color-background-secondary: #16262E;
+  --color-background-secondary: #ffffff1c;
   --password-background: #f1f1f1;
   --color-text: #dadce0;
   --color-text-light: #9aa0a;
@@ -46,7 +46,7 @@ html {
 }
 
 body {
-  font-size: 2.2rem;
+  font-size: 2rem;
   background-color: var(--color-background);
   color: var(--color-text);
 }
@@ -76,6 +76,8 @@ img, a, label {
 
 button {
   padding: 0.5rem 1rem;
+  display: grid;
+  place-content: center;
   color: var(--btn-color);
   font-family: "Mulish", sans-serif;
   font-optical-sizing: auto;

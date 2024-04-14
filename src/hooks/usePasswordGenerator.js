@@ -5,6 +5,8 @@ import {
   alphabet_uppercase_characters,
   numbers_characters,
   symbols_characters,
+  alphabet_characters_with_accent,
+  alphabet_characters_with_accent_replacements,
 } from "../utils/";
 
 function usePasswordGenerator() {
@@ -12,7 +14,46 @@ function usePasswordGenerator() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const generatePassword = useCallback(() => {
+  const generatePasswordPronounceable = useCallback(async () => {
+    if (!settings) {
+      return;
+    }
+
+    let response = await fetch("/dict.json");
+    response = await response.json();
+    const arrayWords = response.arrayWords;
+    
+    const { num_words, word_uppercase, word_numbers, word_separator, accent_umlaut } = settings;
+
+    let password = "";
+    while (password.split(word_separator).length < num_words + 1) {
+      let word = arrayWords[Math.floor(Math.random() * arrayWords.length)];
+      if (word_uppercase) {
+        word = word[0].toUpperCase() + word.slice(1);
+      } else {
+        word = word.toLowerCase();
+      }
+      if (word_numbers) {
+        word += Math.floor(Math.random() * 100);
+      }
+      password += word + word_separator;
+    }
+    password = password.slice(0, -1);
+
+    if (!accent_umlaut) {
+      for (let i = 0; i < alphabet_characters_with_accent.length; i++) {
+        const char = alphabet_characters_with_accent[i];
+        const replacement = alphabet_characters_with_accent_replacements[i];
+        password = password.replaceAll(char, replacement);
+      }
+    }
+
+    setPassword(password);
+    setError(null);
+  }, [settings]);
+
+
+  const generatePasswordRandom = useCallback(() => {
     if (!settings) {
       return;
     }
@@ -114,6 +155,18 @@ function usePasswordGenerator() {
     setPassword(password);
     setError(null);
   }, [settings]);
+
+  const generatePassword = useCallback(() => {
+    if (!settings) {
+      return;
+    }
+
+    if (settings.passwordType === "random") {
+      generatePasswordRandom();
+    } else {
+      generatePasswordPronounceable();
+    }
+  }, [ settings ]);
   return {
     password,
     error,
