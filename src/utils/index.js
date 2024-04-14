@@ -22,16 +22,6 @@ const characterClass = (char) => {
   }
 };
 
-const setDefaultNewSettings = (storage, defaultSettings, saveStorage) => {
-  saveStorage({
-    ...storage,
-    settings: {
-      ...defaultSettings,
-      ...storage.settings,
-    },
-  });
-}
-
 const defaultStorage = {
   storageVersion: "0.0.10",
   theme: "light",
@@ -52,6 +42,17 @@ const defaultStorage = {
     accent_umlaut: true,
   },
 };
+
+const setDefaultNewSettings = (storage, saveStorage) => {
+  saveStorage({
+    ...defaultStorage,
+    ...storage,
+    settings: {
+      ...storage.settings,
+    },
+  });
+}
+
 
 
 export {
