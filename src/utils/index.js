@@ -23,7 +23,7 @@ const characterClass = (char) => {
 };
 
 const defaultStorage = {
-  storageVersion: "0.0.11",
+  storageVersion: "0.0.13",
   theme: "light",
   settings: {
     passwordType: "random",
@@ -44,12 +44,24 @@ const defaultStorage = {
 };
 
 const setDefaultNewSettings = (storage, saveStorage) => {
+  console.log("estamos en setDefaultNewSettings -------------");
+  console.log("nuevo:", {
+    ...defaultStorage,
+    ...storage,
+    settings: {
+      ...defaultStorage.settings,
+      ...storage.settings,
+    },
+    storageVersion: defaultStorage.storageVersion,
+  })
   saveStorage({
     ...defaultStorage,
     ...storage,
     settings: {
+      ...defaultStorage.settings,
       ...storage.settings,
     },
+    storageVersion: defaultStorage.storageVersion,
   });
 }
 

@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { GlobalContext } from '../../context/GlobalContext';
 
-function PasswordTypesButtons() {
+function PasswordModeButtons() {
   const { storage, saveStorage } = useContext(GlobalContext);
   const [passwordType, setPasswordType] = useState(storage.settings.passwordType);
 
@@ -10,6 +10,8 @@ function PasswordTypesButtons() {
   }
 
   useEffect(() => {
+    if (!passwordType) return;
+
     saveStorage({
       ...storage,
       settings: {
@@ -19,6 +21,11 @@ function PasswordTypesButtons() {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ passwordType ]);
+
+  useEffect(() => {
+    if (!storage) return;
+    setPasswordType(storage.settings.passwordType);
+  }, [ storage ]);
 
   return (
     <div className='password__types'>
@@ -44,4 +51,4 @@ function PasswordTypesButtons() {
   );
 }
 
-export default PasswordTypesButtons;
+export default PasswordModeButtons;

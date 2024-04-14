@@ -24,12 +24,9 @@ const GlobalContextProvider = ({ children }) => {
       setTheme(storage.theme);
       setSettings(storage.settings);
     }
+    
     if (storage && storage.storageVersion !== defaultStorage.storageVersion) {
       setDefaultNewSettings(storage, saveStorage);
-      saveStorage({
-        ...storage,
-        storageVersion: defaultStorage.storageVersion,
-      });
     }
   }, [ storage ]);
 

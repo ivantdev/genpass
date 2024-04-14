@@ -8,7 +8,7 @@ import DisplayError from './components/ErrorDisplay/index.jsx';
 import DescriptionDisplay from './components/DescriptionDisplay/index.jsx';
 import AppBackground from './components/BackgroundApp/index.jsx';
 import './App.css'
-import PasswordTypesButtons from './components/PasswordTypesButtons/index.jsx';
+import PasswordModeButtons from './components/PasswordModeButtons/index.jsx';
 import SettingsFormPronounceable from './components/SettingsFormPronounceable/index.jsx';
 
 function App() {
@@ -27,8 +27,6 @@ function App() {
     return null;
   }
 
-  
-
   return (
     <>
       <AppBackground />
@@ -37,7 +35,7 @@ function App() {
         <p>Proteja sus cuentas en Internet usando contraseñas <span className='bold'>seguras</span>.</p>
       </header>
       <main>
-        <PasswordTypesButtons />
+        <PasswordModeButtons />
         <PasswordDisplay password={password} generatePassword={generatePassword} />
         <DisplayError error={error} />
         {
