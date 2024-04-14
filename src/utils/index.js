@@ -23,7 +23,7 @@ const characterClass = (char) => {
 };
 
 const defaultStorage = {
-  storageVersion: "0.0.10",
+  storageVersion: "0.0.11",
   theme: "light",
   settings: {
     passwordType: "random",
