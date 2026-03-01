@@ -97,10 +97,11 @@ function PasswordDisplay({ password, generatePassword }) {
           ))}
         </div>
         <button
+          type="button"
           className={`copy-button ${isCopied ? "is-copied" : ""}`.trim()}
           onClick={handleCopy}
-          title={isCopied ? "Copiado" : "Copiar contrasena"}
-          aria-label={isCopied ? "Copiado" : "Copiar contrasena"}
+          title={isCopied ? "Copiado" : "Copiar contraseña"}
+          aria-label={isCopied ? "Copiado" : "Copiar contraseña"}
         >
           <span className="copy-button__icon copy-button__icon--copy" aria-hidden="true">
             <ContentCopy />
@@ -109,7 +110,12 @@ function PasswordDisplay({ password, generatePassword }) {
             <Check />
           </span>
         </button>
-        <button onClick={generatePassword}>
+        <button
+          type="button"
+          onClick={generatePassword}
+          aria-label="Generar otra contraseña"
+          title="Generar otra contraseña"
+        >
           <Autorenew />
         </button>
       </div>

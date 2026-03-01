@@ -34,7 +34,14 @@ function SettingsFormRandom() {
             <label className="form__label" htmlFor="length">Longitud</label>
             <span className="form__value">{settings.length} caracteres</span>
           </div>
-          <CustomRange name={"length"} min={4} max={64} initialValue={settings.length} onChange={handleChangeSettings} />
+          <CustomRange
+            name={"length"}
+            label="longitud"
+            min={4}
+            max={64}
+            initialValue={settings.length}
+            onChange={handleChangeSettings}
+          />
         </div>
         <div className="form__field">
           <input type="checkbox" id="uppercase" name="uppercase" checked={settings.uppercase} onChange={handleChangeSettings} />

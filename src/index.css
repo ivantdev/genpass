@@ -1,5 +1,7 @@
 :root {
-  font-family: "Mulish", sans-serif;
+  --font-sans: "Mulish", "Avenir Next", "Trebuchet MS", "Segoe UI", sans-serif;
+  --font-mono: "SFMono-Regular", "JetBrains Mono", "Consolas", "Liberation Mono", monospace;
+  font-family: var(--font-sans);
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -89,7 +91,7 @@ button {
   display: grid;
   place-content: center;
   color: var(--btn-color);
-  font-family: "Mulish", sans-serif;
+  font-family: var(--font-sans);
   font-optical-sizing: auto;
   font-weight: 400;
   font-size: 1.6rem;

@@ -13,9 +13,14 @@ function AppBackground() {
 
   return (
     <div className="app-background">
-      <img 
-      src={theme === "light" ? "/images/LightMode.svg" : "/images/DarkMode.svg"}
-      alt="" />
+      <img
+        src={theme === "light" ? "/images/LightMode.svg" : "/images/DarkMode.svg"}
+        alt=""
+        width="900"
+        height="600"
+        decoding="async"
+        fetchpriority="high"
+      />
     </div>
   );
 }

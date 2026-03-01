@@ -333,7 +333,7 @@ input[type="checkbox"]:checked + .label__checkbox .field__example.tachado {
   padding: 0.7rem;
   align-items: start;
   text-align: left;
-  font-family: "Roboto Mono", monospace;
+  font-family: var(--font-mono);
   color: #18211b;
   background: var(--password-background);
   border: 1px solid var(--glass-strong-line);
@@ -508,7 +508,7 @@ input[type="checkbox"]:checked + .label__checkbox .field__example.tachado {
   border-radius: 1.4rem;
   background: rgba(255, 255, 255, 0.15);
   color: var(--color-text);
-  font-family: "Roboto Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 1.5rem;
 }
 

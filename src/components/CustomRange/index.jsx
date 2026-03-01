@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import PlusIcon from '../../assets/icons/Plus';
 import RemoveIcon from '../../assets/icons/Remove';
 
-function CustomRange({ name, min = 0, max = 100, initialValue, onChange }) {
+function CustomRange({ name, label, min = 0, max = 100, initialValue, onChange }) {
   const [value, setValue] = useState(initialValue);
   const { theme } = useContext(GlobalContext);
   const [fill, setFill] = useState('#ffffff');
@@ -50,7 +50,12 @@ function CustomRange({ name, min = 0, max = 100, initialValue, onChange }) {
 
   return (
     <div className="custom-range-container">
-      <button onClick={handleDecrement}>
+      <button
+        type="button"
+        onClick={handleDecrement}
+        aria-label={`Reducir ${label.toLowerCase()}`}
+        title={`Reducir ${label.toLowerCase()}`}
+      >
         <RemoveIcon fill={fill} />
       </button>
       <input
@@ -66,7 +71,12 @@ function CustomRange({ name, min = 0, max = 100, initialValue, onChange }) {
           background: `linear-gradient(to right, ${activeTrackColor} 0%, ${activeTrackColor} ${percent}%, ${inactiveTrackColor} ${percent}%, ${inactiveTrackColor} 100%)`,
         }}
       />
-      <button onClick={handleIncrement}>
+      <button
+        type="button"
+        onClick={handleIncrement}
+        aria-label={`Aumentar ${label.toLowerCase()}`}
+        title={`Aumentar ${label.toLowerCase()}`}
+      >
         <PlusIcon fill={fill} />
       </button>
     </div>
@@ -75,6 +85,7 @@ function CustomRange({ name, min = 0, max = 100, initialValue, onChange }) {
 
 CustomRange.propTypes = {
   name: PropTypes.string,
+  label: PropTypes.string.isRequired,
   min: PropTypes.number,
   max: PropTypes.number,
   initialValue: PropTypes.number,

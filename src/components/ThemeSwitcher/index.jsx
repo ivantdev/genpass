@@ -5,9 +5,16 @@ import DarkModeIcon from '../../assets/icons/DarkMode';
 
 function ThemeSwitcher() {
   const { theme, toggleTheme } = useContext(GlobalContext);
+  const nextThemeLabel = theme === 'light' ? 'Activar tema oscuro' : 'Activar tema claro';
+
   return (
     <div className="theme">
-      <button onClick={toggleTheme}>
+      <button
+        type="button"
+        onClick={toggleTheme}
+        aria-label={nextThemeLabel}
+        title={nextThemeLabel}
+      >
         {theme === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
       </button>
     </div>

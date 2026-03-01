@@ -34,7 +34,14 @@ function SettingsFormPronounceable() {
             <label className="form__label" htmlFor="num_words">Cantidad</label>
             <span className="form__value">{settings.num_words} palabras</span>
           </div>
-          <CustomRange name={"num_words"} min={1} max={8} initialValue={settings.num_words} onChange={handleChangeSettings} />
+          <CustomRange
+            name={"num_words"}
+            label="cantidad de palabras"
+            min={1}
+            max={8}
+            initialValue={settings.num_words}
+            onChange={handleChangeSettings}
+          />
         </div>
         <div className="form__field">
           <input type="checkbox" id="word_uppercase" name="word_uppercase" checked={settings.word_uppercase} onChange={handleChangeSettings} />
