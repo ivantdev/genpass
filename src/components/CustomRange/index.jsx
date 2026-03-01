@@ -9,6 +9,8 @@ function CustomRange({ name, min = 0, max = 100, initialValue, onChange }) {
   const { theme } = useContext(GlobalContext);
   const [fill, setFill] = useState('#ffffff');
   const [percent, setPercent] = useState(0);
+  const activeTrackColor = theme === 'light' ? '#557663' : '#8fb49c';
+  const inactiveTrackColor = theme === 'light' ? 'rgba(85, 118, 99, 0.18)' : 'rgba(219, 232, 223, 0.16)';
 
   const handleChange = (event) => {
     const newValue = event.target.value;
@@ -60,7 +62,9 @@ function CustomRange({ name, min = 0, max = 100, initialValue, onChange }) {
         value={value}
         onChange={handleChange}
         className="custom-range-slider"
-        style={{ background: `linear-gradient(to right, #008080 0%, #008080 ${percent}%, #999999 ${percent}%, #999999 100%)` }}
+        style={{
+          background: `linear-gradient(to right, ${activeTrackColor} 0%, ${activeTrackColor} ${percent}%, ${inactiveTrackColor} ${percent}%, ${inactiveTrackColor} 100%)`,
+        }}
       />
       <button onClick={handleIncrement}>
         <PlusIcon fill={fill} />

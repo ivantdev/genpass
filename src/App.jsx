@@ -30,22 +30,27 @@ function App() {
   return (
     <>
       <AppBackground />
-      <header>
+      <header className="app-header">
+        <p className="app-header__eyebrow">Generación local</p>
         <h1>Generador de contraseñas seguras</h1>
-        <p>Proteja sus cuentas en Internet usando contraseñas <span className='bold'>seguras</span>.</p>
+        <p className="app-header__description">Proteja sus cuentas en Internet usando contraseñas <span className='bold'>seguras</span>, únicas y ajustadas a sus necesidades.</p>
       </header>
-      <main>
-        <PasswordModeButtons />
-        <PasswordDisplay password={password} generatePassword={generatePassword} />
-        <DisplayError error={error} />
-        {
-          settings.passwordType === "random" && <SettingsFormCustom />
-        }
-        {
-          settings.passwordType === "pronounceable" && <SettingsFormPronounceable />
-        }
+      <main className="app-shell">
+        <section className="app-generator">
+          <PasswordModeButtons />
+          <PasswordDisplay password={password} generatePassword={generatePassword} />
+          <DisplayError error={error} />
+          {
+            settings.passwordType === "random" && <SettingsFormCustom />
+          }
+          {
+            settings.passwordType === "pronounceable" && <SettingsFormPronounceable />
+          }
+        </section>
+        <aside className="app-sidebar">
+          <DescriptionDisplay />
+        </aside>
       </main>
-      <DescriptionDisplay />
       <ThemeSwitcher />
     </>
   )

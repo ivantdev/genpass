@@ -11,26 +11,36 @@
   -moz-osx-font-smoothing: grayscale;
 
   /* Tema Claro */
-  --color-background: #f8f8f8;
-  --color-background-secondary: #ffffff65;
-  --password-background: #f8f8f8;
-  --color-text: #333;
-  --color-text-light: #5f6368;
-  --btn-color: #2E4756;
-  --btn-color-hover: #e8f0fe;
-  --checkbox-color: #2E6380;
+  --color-background: #dbe7de;
+  --color-background-secondary: rgba(242, 247, 243, 0.42);
+  --password-background: rgba(248, 251, 248, 0.72);
+  --color-text: #1f2a22;
+  --color-text-light: #617065;
+  --btn-color: #30493a;
+  --btn-color-hover: rgba(85, 118, 99, 0.12);
+  --checkbox-color: #53888a;
+  --glass-line: rgba(77, 108, 88, 0.16);
+  --glass-strong-line: rgba(77, 108, 88, 0.24);
+  --glass-highlight: rgba(255, 255, 255, 0.56);
+  --glass-shadow: 0 3rem 8rem rgba(24, 35, 28, 0.18);
+  --app-overlay: linear-gradient(180deg, rgba(243, 248, 244, 0.22), rgba(221, 233, 224, 0.74));
 }
 
 [data-theme="dark"] {
   /* Tema Oscuro */
-  --color-background: #202124;
-  --color-background-secondary: #ffffff1c;
-  --password-background: #f1f1f1;
-  --color-text: #dadce0;
-  --color-text-light: #9aa0a;
-  --btn-color: #8ab4f8;
-  --btn-color-hover: #8ab4f836;
-  --checkbox-color: #498c99;
+  --color-background: #101712;
+  --color-background-secondary: rgba(18, 27, 22, 0.44);
+  --password-background: rgba(236, 242, 237, 0.82);
+  --color-text: #edf4ef;
+  --color-text-light: #a8b7ad;
+  --btn-color: #deebe2;
+  --btn-color-hover: rgba(143, 180, 156, 0.12);
+  --checkbox-color: #8fb49c;
+  --glass-line: rgba(211, 231, 218, 0.14);
+  --glass-strong-line: rgba(211, 231, 218, 0.22);
+  --glass-highlight: rgba(255, 255, 255, 0.14);
+  --glass-shadow: 0 3rem 8rem rgba(0, 0, 0, 0.42);
+  --app-overlay: linear-gradient(180deg, rgba(9, 14, 11, 0.26), rgba(12, 18, 14, 0.82));
 }
 
 * {
@@ -96,4 +106,21 @@ button {
 button:hover {
   background-color: var(--btn-color-hover);
   cursor: pointer;
+}
+
+button,
+input,
+label {
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 0.3rem color-mix(in srgb, var(--checkbox-color) 22%, transparent);
 }

@@ -147,16 +147,26 @@ function usePasswordGenerator() {
       lowercase,
       numbers,
       symbols,
+      excluded_characters,
       no_repeated,
       start_with_letter,
       no_consecutive,
     } = settings;
+    const excludedCharactersInput = excluded_characters ?? "";
     let password = "";
     let characters = "";
     if (uppercase) characters += alphabet_uppercase_characters;
     if (lowercase) characters += alphabet_characters;
     if (numbers) characters += numbers_characters;
     if (symbols) characters += symbols_characters;
+
+    if (excludedCharactersInput) {
+      const excludedCharacters = new Set(excludedCharactersInput.split(""));
+      characters = characters
+        .split("")
+        .filter((character) => !excludedCharacters.has(character))
+        .join("");
+    }
 
     while (password.length < length) {
       if (characters.length < length && no_repeated) {
@@ -223,6 +233,7 @@ function usePasswordGenerator() {
           );
           return;
         }
+
         if (
           !(alphabet_characters + alphabet_uppercase_characters).includes(
             character

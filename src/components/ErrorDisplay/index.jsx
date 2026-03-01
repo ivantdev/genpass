@@ -5,8 +5,9 @@ function DisplayError({ error }) {
     return null;
   }
   return (
-    <div className='error' style={{color: "red"}}>
-      {error}
+    <div className='error' role="alert">
+      <strong>No se pudo generar la contraseña</strong>
+      <p>{error}</p>
     </div>
   );
 }
