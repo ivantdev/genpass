@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 function useLocalStorage(key, initialValue) {
   const [storage, setStorage] = useState(initialValue);
@@ -21,14 +21,30 @@ function useLocalStorage(key, initialValue) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const saveStorage = (newItem) => {
+  const saveStorage = useCallback((newItem) => {
     try {
-      window.localStorage.setItem(key, JSON.stringify(newItem));
-      setStorage(newItem);
+      setStorage((currentStorage) => {
+        const nextItem =
+          typeof newItem === "function" ? newItem(currentStorage) : newItem;
+
+        if (!nextItem) {
+          return currentStorage;
+        }
+
+        const currentSerialized = JSON.stringify(currentStorage);
+        const nextSerialized = JSON.stringify(nextItem);
+
+        if (currentSerialized === nextSerialized) {
+          return currentStorage;
+        }
+
+        window.localStorage.setItem(key, nextSerialized);
+        return nextItem;
+      });
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [key]);
 
   return {
     storage,

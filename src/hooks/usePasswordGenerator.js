@@ -1,4 +1,4 @@
-import { useState, useContext, useCallback } from "react";
+import { useState, useContext, useCallback, useEffect, useRef } from "react";
 import { GlobalContext } from "../context/GlobalContext";
 import {
   alphabet_characters,
@@ -7,6 +7,7 @@ import {
   symbols_characters,
   alphabet_characters_with_accent,
   alphabet_characters_with_accent_replacements,
+  copyToClipboard,
 } from "../utils/";
 
 const DICTIONARY_CACHE_KEY = "ivant_dev_genpass_dict_cache_v1";
@@ -89,11 +90,38 @@ const getDictionaryWords = async () => {
 };
 
 function usePasswordGenerator() {
-  const { settings } = useContext(GlobalContext);
+  const { settings, preferences, addHistoryEntry } = useContext(GlobalContext);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const preferencesRef = useRef(preferences);
 
-  const generatePasswordPronounceable = useCallback(async () => {
+  useEffect(() => {
+    preferencesRef.current = preferences;
+  }, [preferences]);
+
+  const finalizePassword = useCallback(async (nextPassword, options = {}) => {
+    const {
+      recordHistory = true,
+      autoCopy = true,
+    } = options;
+
+    setPassword(nextPassword);
+    setError(null);
+
+    if (recordHistory) {
+      addHistoryEntry(nextPassword);
+    }
+
+    if (autoCopy && preferencesRef.current?.auto_copy) {
+      try {
+        await copyToClipboard(nextPassword);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [addHistoryEntry]);
+
+  const generatePasswordPronounceable = useCallback(async (options = {}) => {
     if (!settings) {
       return;
     }
@@ -132,12 +160,11 @@ function usePasswordGenerator() {
       }
     }
 
-    setPassword(password);
-    setError(null);
-  }, [settings]);
+    await finalizePassword(password, options);
+  }, [finalizePassword, settings]);
 
 
-  const generatePasswordRandom = useCallback(() => {
+  const generatePasswordRandom = useCallback(async (options = {}) => {
     if (!settings) {
       return;
     }
@@ -247,19 +274,18 @@ function usePasswordGenerator() {
       }
       password += character;
     }
-    setPassword(password);
-    setError(null);
-  }, [settings]);
+    await finalizePassword(password, options);
+  }, [finalizePassword, settings]);
 
-  const generatePassword = useCallback(() => {
+  const generatePassword = useCallback((options = {}) => {
     if (!settings) {
       return;
     }
 
     if (settings.passwordType === "random") {
-      generatePasswordRandom();
+      return generatePasswordRandom(options);
     } else {
-      generatePasswordPronounceable();
+      return generatePasswordPronounceable(options);
     }
   }, [settings, generatePasswordPronounceable, generatePasswordRandom]);
   return {

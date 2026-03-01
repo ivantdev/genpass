@@ -1,31 +1,18 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext } from 'react';
 import { GlobalContext } from '../../context/GlobalContext';
 
 function PasswordModeButtons() {
-  const { storage, saveStorage } = useContext(GlobalContext);
-  const [passwordType, setPasswordType] = useState(storage.settings.passwordType);
+  const { settings, updateSettings } = useContext(GlobalContext);
+
+  const passwordType = settings?.passwordType;
 
   const handlePasswordType = (type) => {
-    setPasswordType(type);
-  }
+    if (!type || type === passwordType) {
+      return;
+    }
 
-  useEffect(() => {
-    if (!passwordType) return;
-
-    saveStorage({
-      ...storage,
-      settings: {
-        ...storage.settings,
-        passwordType,
-      },
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ passwordType ]);
-
-  useEffect(() => {
-    if (!storage) return;
-    setPasswordType(storage.settings.passwordType);
-  }, [ storage ]);
+    updateSettings({ passwordType: type });
+  };
 
   return (
     <div className='password__types'>
@@ -35,7 +22,7 @@ function PasswordModeButtons() {
         onClick={(e) => {
           e.preventDefault();
           handlePasswordType('random');
-      }}>
+        }}>
         Aleatoria
       </button>
       <button
@@ -44,7 +31,7 @@ function PasswordModeButtons() {
         onClick={(e) => {
           e.preventDefault();
           handlePasswordType('pronounceable');
-      }}>
+        }}>
         Recordable
       </button>
     </div>

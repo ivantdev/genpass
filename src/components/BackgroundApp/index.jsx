@@ -19,7 +19,6 @@ function AppBackground() {
         width="900"
         height="600"
         decoding="async"
-        fetchpriority="high"
       />
     </div>
   );

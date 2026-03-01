@@ -3,7 +3,7 @@ import { GlobalContext } from "../../context/GlobalContext";
 import CustomRange from "../CustomRange";
 
 function SettingsFormPronounceable() {
-  const { settings, storage, saveStorage } = useContext(GlobalContext);
+  const { settings, updateSettings } = useContext(GlobalContext);
 
   const handleChangeSettings = (e) => {
     const { name, type } = e.target;
@@ -12,12 +12,8 @@ function SettingsFormPronounceable() {
       value = parseInt(value);
     }
 
-    saveStorage({
-      ...storage,
-      settings: {
-        ...storage.settings,
-        [name]: value,
-      },
+    updateSettings({
+      [name]: value,
     });
   };
 
