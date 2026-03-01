@@ -9,10 +9,60 @@ import {
   alphabet_characters_with_accent_replacements,
 } from "../utils/";
 
+const DICTIONARY_CACHE_KEY = "ivant_dev_genpass_dict_cache_v1";
+
 let dictionaryWordsPromise;
+
+const readDictionaryWordsFromStorage = () => {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  try {
+    const cachedDictionary = window.localStorage.getItem(DICTIONARY_CACHE_KEY);
+    if (!cachedDictionary) {
+      return null;
+    }
+
+    const parsedDictionary = JSON.parse(cachedDictionary);
+    if (Array.isArray(parsedDictionary)) {
+      return parsedDictionary;
+    }
+
+    if (Array.isArray(parsedDictionary?.arrayWords)) {
+      return parsedDictionary.arrayWords;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
+  return null;
+};
+
+const saveDictionaryWordsToStorage = (arrayWords) => {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  try {
+    window.localStorage.setItem(
+      DICTIONARY_CACHE_KEY,
+      JSON.stringify({ arrayWords })
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const getDictionaryWords = async () => {
   if (!dictionaryWordsPromise) {
+    const storedDictionaryWords = readDictionaryWordsFromStorage();
+
+    if (storedDictionaryWords) {
+      dictionaryWordsPromise = Promise.resolve(storedDictionaryWords);
+      return dictionaryWordsPromise;
+    }
+
     dictionaryWordsPromise = fetch("/dict.json")
       .then((response) => {
         if (!response.ok) {
@@ -26,6 +76,7 @@ const getDictionaryWords = async () => {
           throw new Error("El diccionario tiene un formato invalido.");
         }
 
+        saveDictionaryWordsToStorage(data.arrayWords);
         return data.arrayWords;
       })
       .catch((error) => {

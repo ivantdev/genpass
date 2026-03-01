@@ -191,6 +191,56 @@ input[type="checkbox"]:checked + .label__checkbox .field__example.tachado {
   border: none;
   aspect-ratio: 1/1;
   position: relative;
+  overflow: visible;
+}
+
+.copy-button {
+  display: grid;
+  place-items: center;
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+.copy-button__icon {
+  grid-area: 1 / 1;
+  display: grid;
+  place-items: center;
+  transition:
+    opacity 180ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.copy-button__icon svg {
+  display: block;
+}
+
+.copy-button__icon--copy {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.copy-button__icon--check {
+  opacity: 0;
+  transform: translateY(0.4rem) scale(0.82);
+}
+
+.copy-button.is-copied {
+  background-color: var(--btn-color-hover);
+  border-color: color-mix(in srgb, var(--checkbox-color) 38%, transparent);
+  box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--checkbox-color) 12%, transparent);
+}
+
+.copy-button.is-copied .copy-button__icon--copy {
+  opacity: 0;
+  transform: translateY(-0.4rem) scale(0.82);
+}
+
+.copy-button.is-copied .copy-button__icon--check {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 .password__text {

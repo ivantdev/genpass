@@ -7,7 +7,7 @@ const alphabet_characters_with_accent = "áéíóúüÁÉÍÓÚÜ";
 const alphabet_characters_with_accent_replacements = "aeiouuAEIOUU";
 
 const copyToClipboard = (password) => {
-  navigator.clipboard.writeText(password);
+  return navigator.clipboard.writeText(password);
 };
 
 const characterClass = (char) => {
@@ -79,4 +79,3 @@ export {
   alphabet_characters_with_accent_replacements,
   defaultStorage,
 };
-
