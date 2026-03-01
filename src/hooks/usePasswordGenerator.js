@@ -9,6 +9,34 @@ import {
   alphabet_characters_with_accent_replacements,
 } from "../utils/";
 
+let dictionaryWordsPromise;
+
+const getDictionaryWords = async () => {
+  if (!dictionaryWordsPromise) {
+    dictionaryWordsPromise = fetch("/dict.json")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("No se pudo cargar el diccionario.");
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        if (!Array.isArray(data.arrayWords)) {
+          throw new Error("El diccionario tiene un formato invalido.");
+        }
+
+        return data.arrayWords;
+      })
+      .catch((error) => {
+        dictionaryWordsPromise = null;
+        throw error;
+      });
+  }
+
+  return dictionaryWordsPromise;
+};
+
 function usePasswordGenerator() {
   const { settings } = useContext(GlobalContext);
   const [password, setPassword] = useState("");
@@ -19,9 +47,14 @@ function usePasswordGenerator() {
       return;
     }
 
-    let response = await fetch("/dict.json");
-    response = await response.json();
-    const arrayWords = response.arrayWords;
+    let arrayWords;
+    try {
+      arrayWords = await getDictionaryWords();
+    } catch {
+      setPassword("");
+      setError("No se pudo cargar el diccionario de palabras.");
+      return;
+    }
     
     const { num_words, word_uppercase, word_numbers, word_separator, accent_umlaut } = settings;
 
@@ -166,7 +199,7 @@ function usePasswordGenerator() {
     } else {
       generatePasswordPronounceable();
     }
-  }, [ settings ]);
+  }, [settings, generatePasswordPronounceable, generatePasswordRandom]);
   return {
     password,
     error,

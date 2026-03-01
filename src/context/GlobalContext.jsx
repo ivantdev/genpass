@@ -28,7 +28,7 @@ const GlobalContextProvider = ({ children }) => {
     if (storage && storage.storageVersion !== defaultStorage.storageVersion) {
       setDefaultNewSettings(storage, saveStorage);
     }
-  }, [ storage ]);
+  }, [ storage, saveStorage ]);
 
 
 
